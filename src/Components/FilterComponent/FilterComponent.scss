@@ -1,0 +1,17 @@
+.filter-container{
+    display: flex;
+    justify-content: center;
+    background-color: cadetblue;
+    height: 50px;
+    color: cornsilk;
+    &>div{
+        flex-grow: 1;
+        text-align: center;
+        align-items: center;
+        align-self: center;
+        select{
+            width: 100%;
+        }
+        
+    }
+}

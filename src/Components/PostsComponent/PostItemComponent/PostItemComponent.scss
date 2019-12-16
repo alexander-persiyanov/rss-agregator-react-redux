@@ -1,0 +1,17 @@
+.post-item{
+    border:1px solid #dfdfdf;
+    padding: 10px;
+    margin-bottom:15px ;
+    background-color: white;
+
+    .label{
+        font-weight: bold;
+    }
+    &:hover{
+        cursor: pointer;
+    }
+    &.readed{
+        background-color: beige;
+        color: #878787;
+    }
+}
