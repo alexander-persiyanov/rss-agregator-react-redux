@@ -1,4 +1,4 @@
-import React,{ useEffect }  from "react";
+import React,{ useEffect, useState }  from "react";
 import { connect } from "react-redux";
 
 import { getDatesFromPosts,filterPostsByDate } from "../../Redux_store/actions/actions";
@@ -7,15 +7,18 @@ import  "../FilterComponent/FilterComponent.scss";
 import moment from 'moment';
 
 function  FilterComponent(props) {
-
+    const [dates,setDates] = useState(null);
 
     useEffect(()=>{
        
       
 
        if(props.articles.length>0){
-     
-        props.getDatesFromPosts();
+       
+        //props.getDatesFromPosts();
+        setDates(getDates());
+
+
        }
            
         
@@ -26,11 +29,54 @@ function  FilterComponent(props) {
     },[props.articles]);
 
 
+    function  getDates(){
+        let list_dates = [];
+
+
+        props.articles.forEach(function(item, i, arr) {
+        let pubDate = item.pubDate._text; 
+    
+        if(list_dates.length>0){
+
+            for(let j=0; j<=list_dates.length-1;j++){
+
+            if( moment(list_dates[j]).startOf('day').isSame( moment(pubDate).startOf('day'))) {
+                pubDate = null;
+                break; 
+            }
+
+            }
+
+            if(pubDate!=null){
+            list_dates.push(pubDate);
+            }
+        
+        }else{
+            list_dates.push(pubDate);
+        }
+        
+        
+
+        });
+
+        list_dates.sort(function(a,b){
+        return moment(a) - moment(b);
+        });
+
+        return list_dates;
+    }
+
+
     function makeOptionsList(){
-      return  props.filterListDates.map((item,index)=>{
-            return   <option value={item} key={index}>{moment(item).format('DD/MM/YYYY')}</option>;
-               
-       })
+        if(dates){
+            return  dates.map((item,index)=>{
+                return   <option value={item} key={index}>{moment(item).format('DD/MM/YYYY')}</option>;
+                    
+            })
+
+        }
+
+     
 
         
        
@@ -65,8 +111,8 @@ function  FilterComponent(props) {
 
 let  mapStateToProps = (state)=>{
   return {
-    articles: state.filteredArticles,
-    filterListDates: state.filterListDates,
+    articles: state.remoteArticles,
+    // filterListDates: state.filterListDates,
   };
 }
 
@@ -74,7 +120,7 @@ let  mapStateToProps = (state)=>{
 
 const mapStateToDisptch = (dispatch)=>{
     return {
-        getDatesFromPosts : ()=>{dispatch(getDatesFromPosts())}, 
+        // getDatesFromPosts : ()=>{dispatch(getDatesFromPosts())}, 
         filterPostsByDate : (date)=>{dispatch(filterPostsByDate(date))}, 
     }
 }
