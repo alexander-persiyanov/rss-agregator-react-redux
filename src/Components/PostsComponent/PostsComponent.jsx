@@ -29,7 +29,8 @@ export class Posts extends Component {
 
     postActive(id){
       // this.props.changeReadState(id);
-      // alert("active:"+' '+id);
+     
+       //alert("active:"+' '+id);
       this.props.setReadState(id);
     }
 
@@ -58,7 +59,7 @@ export class Posts extends Component {
 
   let  mapStateToProps = (state)=>{
     return {
-      articles: state.remoteArticles
+      articles: state.filteredArticles
     };
   }
 
@@ -79,6 +80,7 @@ export class Posts extends Component {
   
   
   export default connect(
-    mapStateToProps,
+    // mapStateToProps,
+     null,
     mapDispatchToProps
   )(Posts);

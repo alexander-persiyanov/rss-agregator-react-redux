@@ -54,6 +54,7 @@ export class PostItem extends Component {
   
   
   export default connect(
-    mapStateToProps,
+    // mapStateToProps,
+    null,
     { getData }
   )(PostItem);
