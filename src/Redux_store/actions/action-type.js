@@ -1,4 +1,6 @@
 export const ADD_ARTICLE = "ADD_ARTICLE" ; 
 export const CHANGE_READ_STATE = "CHANGE_READ_STATE" ; 
+export const GET_DATES_FROM_POSTS = "GET_DATE_FROM_POSTS" ; 
+export const FILTER_POSTS_BY_DATE = "FILTER_POSTS_BY_DATE" ; 
 
 

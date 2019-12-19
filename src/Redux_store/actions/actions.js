@@ -1,4 +1,4 @@
-import { ADD_ARTICLE,CHANGE_READ_STATE } from "./action-type";
+import { ADD_ARTICLE,CHANGE_READ_STATE,GET_DATES_FROM_POSTS,FILTER_POSTS_BY_DATE } from "./action-type";
 import convert from 'xml-js';
 import uuidv1  from  'uuid/v1';
 
@@ -10,6 +10,11 @@ export function addArticle(payload) {
     return { type: ADD_ARTICLE, payload }
 };
 
+export function toggleLoaderSpinner(isLoading) {
+    return { type: "TOGGLE_LOADER_SPINNER", isLoading }
+};
+
+
 
 
 
@@ -18,6 +23,10 @@ export function getData() {
    
     return function(dispatch) {
         console.dir(dispatch);
+
+        dispatch(toggleLoaderSpinner(true));
+
+        
         return fetch("http://127.0.0.1:8080/https://www.repubblica.it/rss/homepage/rss2.0.xml")
         .then(response => {    
        
@@ -34,7 +43,7 @@ export function getData() {
            
              arr.forEach(obj => {
                
-                obj["id"] = uuidv1();
+                // obj["id"] = uuidv1();
                 obj["readed"] = false;
 
                 
@@ -46,6 +55,7 @@ export function getData() {
         })
         .then(arr => {
             dispatch({ type: "DATA_LOADED", payload: arr });
+            dispatch(toggleLoaderSpinner(false));
         });
         
        
@@ -65,3 +75,20 @@ export function changeReadState(id_post) {
     
     };
 };
+
+export function getDatesFromPosts() {
+   
+        return { type: GET_DATES_FROM_POSTS } ;
+    
+   
+};
+
+export function filterPostsByDate(date) {
+   
+    return { type: FILTER_POSTS_BY_DATE, payload: date } ;
+
+
+};
+
+
+
