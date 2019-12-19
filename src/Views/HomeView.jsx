@@ -51,8 +51,8 @@ class HomeView extends Component {
 }
 
 const mapStateToProps = (state) => ({
-  articles: state.filteredArticles,
-  isLoading:state.isLoading,
+  articles: state.articles.filteredArticles,
+  isLoading:state.articles.isLoading,
 });
 export default connect(mapStateToProps)(HomeView);
 //export default HomeView;

@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 
 
 const mapStateToProps = (state) => {
-  return { list: state.list };
+  return { list: state.lists.list };
 };
 const mapStateToDispatch = (dispatch) => {
 

@@ -6,7 +6,7 @@ const GET_RSS = "GET_RSS";
 const DATA_LOADED = "DATA_LOADED";
 const CHANGE_READ_STATE = "CHANGE_READ_STATE";
 const TOGGLE_LOADER_SPINNER = "TOGGLE_LOADER_SPINNER";
-
+const FILTER_POSTS_BY_DATE = "FILTER_POSTS_BY_DATE";
 
 
 
@@ -95,6 +95,34 @@ export default function ArticlesReducer ( state = initialState , action){
     
      }
 
+     if ( action.type === FILTER_POSTS_BY_DATE){
+  
+        let date =  action.payload;
+        let filteredArticles;
+        if(date!="all"){
+          
+          filteredArticles = state.remoteArticles.filter(
+            function(article){
+              
+              return  moment(article.pubDate._text).startOf('day').isSame( moment(date).startOf('day'))  ;
+      
+            }
+          );
+    
+        }else{
+          
+          filteredArticles =  cloneDeep(state.remoteArticles);
+    
+        }
+        
+       
+    
+        return Object.assign({}, state, {
+          filteredArticles: filteredArticles
+        }
+        );
+    
+      } 
      
 
      

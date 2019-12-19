@@ -111,7 +111,7 @@ function  FilterComponent(props) {
 
 let  mapStateToProps = (state)=>{
   return {
-    articles: state.remoteArticles,
+    articles: state.articles.remoteArticles,
     // filterListDates: state.filterListDates,
   };
 }
